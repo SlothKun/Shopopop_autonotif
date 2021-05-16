@@ -5,7 +5,7 @@
 # adb tcpip 5555
 
 # Connect with ADB to the phone
-adb connect 192.138.0.12:5555
+adb connect 192.168.0.12:5555
 
 # Start session
 scrcpy
