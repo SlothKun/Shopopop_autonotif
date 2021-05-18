@@ -1,0 +1,28 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "339f5dfa7cfb5c87ce600da893e821301f18dac9d143fce808f426f892b7edfa"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.9"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pure-python-adb": {
+            "hashes": [
+                "sha256:0ecc89d780160cfe03260ba26df2c471a05263b2cad0318363573ee8043fb94d"
+            ],
+            "index": "pypi",
+            "version": "==0.3.0.dev0"
+        }
+    },
+    "develop": {}
+}
