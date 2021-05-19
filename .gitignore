@@ -1,5 +1,6 @@
 # Custom ignore
 resources/
+testcases/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

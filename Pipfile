@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 pure-python-adb = "*"
+opencv-python = "*"
+pillow = "*"
+matplotlib = "*"
 
 [dev-packages]
 
