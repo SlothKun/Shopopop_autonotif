@@ -3,7 +3,7 @@
 import PIL.Image as Image
 import PIL.ImageDraw as ImageDraw
 
-im = Image.open('testcases/search_nc.jpg')
+im = Image.open('testcases/phonescreen.png')
 #rgb_im = im.convert('RGB')
 rgb_im = im.load()
 
