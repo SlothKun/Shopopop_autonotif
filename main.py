@@ -93,8 +93,9 @@ while True:
         refreshcoordinates = Get_refreshcoordinates()
         if refreshcoordinates != (-1, -1) and Get_checkdeliv() == True:
             device.shell("cmd notification post -S bigtext -t 'NewDelivery'")
+            time.sleep(120)
         device.shell(f"input tap {refreshcoordinates[0]} {refreshcoordinates[1]}")
-        time.sleep(30)
+        time.sleep(45)
     else:
         print(f"{Get_timestamp()} - Not On App")
         time.sleep(5)
