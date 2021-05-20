@@ -52,7 +52,7 @@ def Get_checkdeliv():
         x = int(img.size[0] / 2)
         y = int(img.size[1] / 2)
 
-        target = (27, 63, 147, 255)
+        target = (27, 63, 146, 255)
         newpixel = rgb_img[x,y]
 
         while target != newpixel:
@@ -73,17 +73,17 @@ client = AdbClient(host="127.0.0.1", port=5037)
 # Connect to phone with wifi
 device = client.device("192.168.1.12:5555")
 
-
 while True:
     if Get_foregroundapp(device) == "com.shopopop":
         Screen(device)
         # Check if there's a refresh button & get its coordinates
         refreshcoordinates = Get_refreshcoordinates()
+        device.shell(f"input tap {refreshcoordinates[0]} {refreshcoordinates[1]}")
         if refreshcoordinates != (-1, -1) and Get_checkdeliv() == True:
             device.shell("cmd notification post -S bigtext -t 'NewDelivery' 'Tag' 'NewDelivery'")
             time.sleep(120)
-        device.shell(f"input tap {refreshcoordinates[0]} {refreshcoordinates[1]}")
-        time.sleep(45)
+        else:
+            time.sleep(45)
     else:
         print(f"{Get_timestamp()} - Not On App")
         time.sleep(5)
