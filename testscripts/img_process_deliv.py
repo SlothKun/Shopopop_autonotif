@@ -3,7 +3,7 @@
 import PIL.Image as Image
 import PIL.ImageDraw as ImageDraw
 
-im = Image.open('testcases/phonescreen.jpg')
+im = Image.open('testcases/phonescreen.png')
 #rgb_im = im.convert('RGB')
 rgb_im = im.load()
 
@@ -14,7 +14,7 @@ x = int(im.size[0] / 2)
 print(x)
 print(y)
 
-target = (27, 63, 147, 255)
+target = (27, 63, 146, 255)
 walking_pixel = rgb_im[x,y]
 
 
@@ -31,4 +31,4 @@ print(y)
 print(rgb_im[x,y])
 print(f"x : {x} - y : {y}")
 #print(rgb_im[x-1, y-1])
-#im.save("testcases/search_line1.jpg")
+#im.save("testcases/search_line1.png")
