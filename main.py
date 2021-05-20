@@ -74,16 +74,21 @@ client = AdbClient(host="127.0.0.1", port=5037)
 device = client.device("192.168.1.12:5555")
 
 while True:
-    if Get_foregroundapp(device) == "com.shopopop":
-        Screen(device)
-        # Check if there's a refresh button & get its coordinates
-        refreshcoordinates = Get_refreshcoordinates()
-        device.shell(f"input tap {refreshcoordinates[0]} {refreshcoordinates[1]}")
-        if refreshcoordinates != (-1, -1) and Get_checkdeliv() == True:
-            device.shell("cmd notification post -S bigtext -t 'NewDelivery' 'Tag' 'NewDelivery'")
-            time.sleep(120)
+    try:
+        if Get_foregroundapp(device) == "com.shopopop":
+            Screen(device)
+            # Check if there's a refresh button & get its coordinates
+            refreshcoordinates = Get_refreshcoordinates()
+            device.shell(f"input tap {refreshcoordinates[0]} {refreshcoordinates[1]}")
+            time.sleep(1)
+            Screen(device)
+            if refreshcoordinates != (-1, -1) and Get_checkdeliv() == True:
+                device.shell("cmd notification post -S bigtext -t 'NewDelivery' 'Tag' 'NewDelivery'")
+                time.sleep(120)
+            else:
+                time.sleep(45)
         else:
-            time.sleep(45)
-    else:
-        print(f"{Get_timestamp()} - Not On App")
-        time.sleep(5)
+            print(f"{Get_timestamp()} - Not On App")
+            time.sleep(5)
+    except Exception as e:
+        print(e)
