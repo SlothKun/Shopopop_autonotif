@@ -44,11 +44,9 @@ def Get_refreshcoordinates():
             x += 1
         print(f"{Get_timestamp()} - On App - Refresh Button Found ({x},{y})")
         return (x,y)
-
     except Exception as e: # On other menus that the main one
         print(f"{Get_timestamp()} - On App - Refresh Button Not Found")
         return (-1,-1) # return coordinate error
-
 
 
 def Get_checkdeliv():
