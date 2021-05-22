@@ -5,19 +5,25 @@ import PIL.Image as Image
 
 
 def Get_timestamp():
+    """Return time & date at moment t"""
     return time.asctime(time.localtime())
 
 
 def Get_foregroundapp(device):
+    """Return the foreground app"""
     return device.shell("dumpsys activity recents | grep 'Recent #0' | cut -d= -f2 | sed 's| .*||' | cut -d '/' -f1").strip()
 
 
 def Screen(device):
+    """Make a screenshot of the screen and save it on the computer"""
     with open("phonescreen.png", "wb") as fp:
         fp.write(device.screencap())
 
 
 def Get_refreshcoordinates():
+    """
+    Search the refresh button presence by checking the line at the 2/3 of the top menu
+    """
     try:
         img = Image.open('phonescreen.png')
         rgb_img = img.load()
@@ -44,7 +50,12 @@ def Get_refreshcoordinates():
         return (-1,-1) # return coordinate error
 
 
+
 def Get_checkdeliv():
+    """
+    Check screen for the right pixel color corresponding to the delivery's button
+    Start from the middle of the screen as the button will always be on the bottom of it
+    """
     try:
         img = Image.open('phonescreen.png')
         rgb_img = img.load()
@@ -81,14 +92,16 @@ while True:
             refreshcoordinates = Get_refreshcoordinates()
             device.shell(f"input tap {refreshcoordinates[0]} {refreshcoordinates[1]}")
             time.sleep(1)
+            # Get content after refreshing
             Screen(device)
             if refreshcoordinates != (-1, -1) and Get_checkdeliv() == True:
+                # Alert user of the new delivery
                 device.shell("cmd notification post -S bigtext -t 'NewDelivery' 'Tag' 'NewDelivery'")
                 time.sleep(120)
             else:
                 time.sleep(45)
         else:
             print(f"{Get_timestamp()} - Not On App")
-            time.sleep(5)
+            time.sleep(10)
     except Exception as e:
         print(e)
