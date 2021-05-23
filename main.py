@@ -121,9 +121,9 @@ elif remotechoice == "2":
     if device == None:
         print("Port isn't open on specified device")
         answer = input("Connect your device on your USB port and enter any key to continue")
-        os.system("adb tcpip 5555")
-        client.remote_connect(ip, port)
-        device = client.device(f"{ip}:5555")
+        os.system("adb tcpip 5555") # Open port 5555 on device
+        client.remote_connect(ip, port) # Open connexion on device
+        device = client.device(f"{ip}:5555") # Connect device
 
 # Connect to phone with wifi
 #device = client.device("192.168.1.12:5555")
