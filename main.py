@@ -2,7 +2,8 @@
 from ppadb.client import Client as AdbClient
 import time
 import PIL.Image as Image
-
+import os
+import subprocess
 
 def Get_timestamp():
     """Return time & date at moment t"""
@@ -76,7 +77,9 @@ def Get_checkdeliv():
         return False
     
 
+# Make sure adb is running
 
+os.system("adb devices >> /dev/null 2>&1")
 
 # Connect to adb server
 client = AdbClient(host="127.0.0.1", port=5037)
@@ -84,8 +87,7 @@ client = AdbClient(host="127.0.0.1", port=5037)
 remotechoice = "0"
 
 while remotechoice not in ["1", "2"]:
-    remotechoice = input("How do you want to connect to your device ? (1 - cable / 2 - wireless) ?\n")
-
+    remotechoice = input("How do you want to connect to your device ? (1 - cable/connected | 2 - wireless) ?\n")
 
 if remotechoice == "1":
     devices = client.devices()
@@ -116,12 +118,17 @@ elif remotechoice == "2":
             port = -1
     client.remote_connect(ip, port)
     device = client.device(f"{ip}:5555")
+    if device == None:
+        print("Port isn't open on specified device")
+        answer = input("Connect your device on your USB port and enter any key to continue")
+        os.system("adb tcpip 5555")
+        client.remote_connect(ip, port)
+        device = client.device(f"{ip}:5555")
 
 # Connect to phone with wifi
 #device = client.device("192.168.1.12:5555")
 
 while True:
-    #break
     try:
         if Get_foregroundapp(device) == "com.shopopop":
             Screen(device)
