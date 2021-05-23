@@ -76,13 +76,52 @@ def Get_checkdeliv():
         return False
     
 
+
+
 # Connect to adb server
 client = AdbClient(host="127.0.0.1", port=5037)
 
+remotechoice = "0"
+
+while remotechoice not in ["1", "2"]:
+    remotechoice = input("How do you want to connect to your device ? (1 - cable / 2 - wireless) ?\n")
+
+
+if remotechoice == "1":
+    devices = client.devices()
+    nb_device = 1
+    all_devices = {}
+    print("\nConnected devices : \n")
+    for eachdevice in devices:
+        all_devices[nb_device] = eachdevice
+        print(f"{nb_device} - {eachdevice.serial}")
+        nb_device += 1
+    device_choice = 0
+    while device_choice > nb_device or device_choice <= 0:
+        device_choice = input("Please choose the device you want to connect with : ")
+        if device_choice.isdigit():
+            device_choice = int(device_choice)
+        else:
+            device_choice = 0
+    device = all_devices[device_choice]
+elif remotechoice == "2":
+    ip = input("Please specify device ip address : ")
+    port = -1
+    while port < 0:
+        try:
+            port = input("Please specify port (default 5555) : ") or 5555
+            port = int(port)
+        except ValueError as e:
+            print(e)
+            port = -1
+    client.remote_connect(ip, port)
+    device = client.device(f"{ip}:5555")
+
 # Connect to phone with wifi
-device = client.device("192.168.1.12:5555")
+#device = client.device("192.168.1.12:5555")
 
 while True:
+    #break
     try:
         if Get_foregroundapp(device) == "com.shopopop":
             Screen(device)
