@@ -1,9 +1,0 @@
-# Tap at coordinate
-adb shell input tap x y
-
-# Send notification
-adb shell cmd notification post -S bigtext -t 'H' 'Tag' "multiline text test"
-
-# Get foreground app 
-adb shell dumpsys activity recents | grep 'Recent #0' | cut -d= -f2 | sed 's| .*||' | cut -d '/' -f1
-

@@ -2,6 +2,7 @@
 resources/
 testcases/
 phonescreen*
+testscripts/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
